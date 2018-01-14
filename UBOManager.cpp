@@ -8,7 +8,7 @@
 UBOManager::UBOManager() {
 
 	std::vector<GLenum> types({ GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
-	std::vector<std::string> filenames({ "managerVert.glsl", "managerFrag.glsl" });
+	std::vector<std::string> filenames({ "glsl/managerVert.glsl", "glsl/managerFrag.glsl" });
 
 	program = programSetup(types, filenames);
 

@@ -29,7 +29,7 @@ WaterSurfaceGraphicsComponent::WaterSurfaceGraphicsComponent(
 		GL_VERTEX_SHADER, GL_GEOMETRY_SHADER, GL_FRAGMENT_SHADER });
 
 	std::vector<std::string> filenames({
-		"waterVert.glsl", "waterGeom.glsl", "waterFrag.glsl" });
+		"glsl/waterVert.glsl", "glsl/waterGeom.glsl", "glsl/waterFrag.glsl" });
 
 	program = programSetup(types, filenames);
 	glUseProgram(program);
