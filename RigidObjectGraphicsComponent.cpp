@@ -14,7 +14,7 @@ RigidObjectGraphicsComponent::RigidObjectGraphicsComponent(
 		GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
 
 	std::vector<std::string> filenames({
-		"buoyantVert.glsl", "buoyantFrag.glsl" });
+		"glsl/buoyantVert.glsl", "glsl/buoyantFrag.glsl" });
 
 	program = programSetup(types, filenames);
 	glUseProgram(program);

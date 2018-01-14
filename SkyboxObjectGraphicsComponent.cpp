@@ -16,7 +16,7 @@ SkyboxObjectGraphicsComponent::SkyboxObjectGraphicsComponent() {
 		GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
 
 	std::vector<std::string> filenames({
-		"skyboxVert.glsl", "skyboxFrag.glsl" });
+		"glsl/skyboxVert.glsl", "glsl/skyboxFrag.glsl" });
 
 	program = programSetup(types, filenames);
 	glUseProgram(program);
