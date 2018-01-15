@@ -48,7 +48,7 @@ RigidObjectPhysicsComponent::RigidObjectPhysicsComponent(
 	std::vector<unsigned int> const & _elements,
 	float _maxCalcArea) :
 	//bo(_vertices, _elements, _maxCalcArea),
-	position(0.0f, -2.0f, 0.0f),
+	position(0.0f, 2.0f, 0.0f),
 	velocity(0.0f, 0.0f, 0.0f),
 	omega(0.0f, 0.0f, 0.0f),
 	rotM(1.0f),
@@ -97,9 +97,10 @@ void RigidObjectPhysicsComponent::update(WaterSurface const & waterSurface, floa
 
 	//std::cout << glm::to_string(position) << std::endl;
 	//std::cout << glm::to_string(rotM) << std::endl;
+	//std::cout << glm::to_string(rotM) << std::endl;
 
-	float g = 9.8f;
-	glm::vec3 gv = glm::vec3(0.0f, -g, 0.0f);
+	//float g = 9.8f;
+	//glm::vec3 gv = glm::vec3(0.0f, -g, 0.0f);
 
 	// Re
 	float v = glm::length(velocity);
@@ -140,7 +141,7 @@ void RigidObjectPhysicsComponent::update(WaterSurface const & waterSurface, floa
 	force(-d * (fd_air + fd_water), timeStep);
 
 	// Gravity
-	force(gv * mass, timeStep);
+	//force(gv * mass, timeStep);
 
 	auto pLamb = waterSurface.getPhysicsComponent().getPressureLambda();
 
@@ -169,9 +170,9 @@ void RigidObjectPhysicsComponent::update(WaterSurface const & waterSurface, floa
 	auto magn = factor * lengthScale * q * Cd * areaScale;
 	moment(magn * dDrag, timeStep);
 
-	auto forceSize = 1000.0f;
-	PointForce pf = { glm::vec3(modelMatrix * glm::vec4(10.0f, 1.0f, 10.0f, 1.0f)), forceSize, glm::vec3(0.0f, -1.0f, 0.0f) };
-	pointForce(pf, timeStep);
+	//auto forceSize = 1000.0f;
+	//PointForce pf = { glm::vec3(modelMatrix * glm::vec4(10.0f, 1.0f, 10.0f, 1.0f)), forceSize, glm::vec3(0.0f, -1.0f, 0.0f) };
+	//pointForce(pf, timeStep);
 
 	//std::cout << std::endl;
 	//std::cout << "Calc Time (ms): " << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1.0e6f << std::endl;
@@ -231,16 +232,18 @@ void RigidObjectPhysicsComponent::linStep(float timeStep) {
 void RigidObjectPhysicsComponent::rotStep(float timeStep) {
 
 	auto length = glm::length(omega);
-	auto dirOmega = omega / length;
-	auto dOmega = length * timeStep;
-	glm::mat3 metaRot;
-	if (dOmega == 0) {
-		metaRot = glm::mat3(1.0f);
+	if (length > 0) {
+        auto dirOmega = omega / length;
+        auto dOmega = length * timeStep;
+        glm::mat3 metaRot;
+        if (dOmega == 0) {
+            metaRot = glm::mat3(1.0f);
+        }
+        else {
+            metaRot = glm::mat3(glm::rotate(glm::mat4(1.0f), dOmega, dirOmega));
+        }
+        rotM = metaRot * rotM;
 	}
-	else {
-		metaRot = glm::mat3(glm::rotate(glm::mat4(1.0f), dOmega, dirOmega));
-	}
-	rotM = metaRot * rotM;
 }
 
 void RigidObjectPhysicsComponent::step(float timeStep) {

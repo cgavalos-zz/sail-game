@@ -1,8 +1,7 @@
 # Executable
 *.out
 
-# CodeLite
+# CodeBlocks
 Debug/
-sail-game.mk
-sail-game.project
-sail-game.txt
+sail-game.cbp
+sail-game.depend

@@ -63,6 +63,7 @@ void render (
 	//exit(1);
 
 	SDL_GL_SwapWindow(win);
+    SDL_Delay(1000 / 60);
 }
 
 bool shouldQuit (

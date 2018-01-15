@@ -1,5 +1,8 @@
 #include "World.h"
 
+#include <iostream>
+#include <glm/gtx/string_cast.hpp>
+
 World::World(unsigned int width, unsigned int height, SDL_Event * e) :
 	player(e),
 	waterSurface(gridUnitsPerSide, gridWidth),
@@ -21,4 +24,6 @@ void World::update(float timeStep) {
 
 	TestObject to;
 	to.update();
+
+    player.getCamera();
 }
