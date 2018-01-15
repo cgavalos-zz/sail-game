@@ -14,7 +14,7 @@ void handleIncludes(std::vector<std::string> & lines) {
 
 		if (index != std::string::npos) {
 
-			auto filename = line.substr(
+			std::string filename = line.substr(
 				findString.size(),
 				line.size() - findString.size());
 			auto includeLines = getLines(filename);

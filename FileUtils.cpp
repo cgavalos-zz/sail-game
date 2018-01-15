@@ -36,18 +36,18 @@ std::string combine(std::vector<std::string> const & lines) {
 	return string;
 }
 
-std::pair<std::vector<glm::vec3>, std::vector<unsigned int>> 
+std::pair<std::vector<glm::vec3>, std::vector<unsigned int>>
 getVDataFromFile(std::string const & filename) {
 
 	std::vector<glm::vec3> newVertices;
 	std::vector<unsigned int> newElements;
-	auto lines = getLines(filename);
+	std::vector<std::string> lines = getLines(filename);
 	bool broken = false;
 
 	std::for_each(lines.begin(), lines.end(),
 		[&broken, &newVertices, &newElements](std::string _line) {
 
-		auto line = _line;
+		std::string line = _line;
 		if (line == "") {
 			broken = true;
 		}

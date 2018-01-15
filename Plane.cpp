@@ -32,16 +32,16 @@ Plane::setNormal(glm::vec3 const & normal) {
     _normal = normal;
 }
 
-std::pair<glm::vec3, Plane::LineIntersect> 
+std::pair<glm::vec3, Plane::LineIntersect>
 Plane::lineIntersect(Line const & line) const {
-    auto l = line.getDirection();
-    auto l0 = line.getPoint();
-    auto n = _normal;
-    auto p0 = _point_on_plane;
+    glm::vec3 l = line.getDirection();
+    glm::vec3 l0 = line.getPoint();
+    glm::vec3 n = _normal;
+    glm::vec3 p0 = _point_on_plane;
 
-    auto bottom = glm::dot(l, n);
-    auto top = glm::dot((p0 - l0), n);
-    auto zero = 0.0f;
+    float bottom = glm::dot(l, n);
+    float top = glm::dot((p0 - l0), n);
+    float zero = 0.0f;
     LineIntersect type;
     glm::vec3 intersect;
 
@@ -62,7 +62,7 @@ Plane::lineIntersect(Line const & line) const {
     return std::make_pair(intersect, type);
 }
 
-bool 
+bool
 Plane::pointAbove(
     glm::vec3 const & point,
     glm::vec3 const & up) const {
