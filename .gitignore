@@ -1,2 +1,7 @@
-// Executable
+# Executable
 *.out
+
+# CodeBlocks
+Debug/
+sail-game.cbp
+sail-game.depend
