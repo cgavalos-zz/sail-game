@@ -129,32 +129,32 @@ std::pair<std::vector<Triangle>, std::vector<Triangle>> Triangle::clip (
     {
         return glm::dot (p - l1, p - l2) <= 0;
     };
-
+    Triangle cpy = Triangle(v1, v2, v3);
     switch (plane_status (plane, up))
     {
     case ABOVE:
         return std::make_pair (
-                   std::vector<Triangle> ({ *this }),
+                   std::vector<Triangle> ({ cpy }),
                    std::vector<Triangle> ({}));
 
     case BELOW:
         return std::make_pair (
                    std::vector<Triangle> ({}),
-                   std::vector<Triangle> ({ *this }));
+                   std::vector<Triangle> ({ cpy }));
 
     default:
         auto r12 = plane.lineIntersect (Line (v1, v2 - v1));
         auto v12 =
             r12.second == Plane::LineIntersect::NO_INTERSECT ||
-            !point_on_segment (v1, v2, r12.first) ? v1 : r12.first;
+            !point_on_segment (v1, v2, r12.first) ? (v1 + v2) * 0.5f : r12.first;
         auto r23 = plane.lineIntersect (Line (v2, v3 - v2));
         auto v23 =
             r23.second == Plane::LineIntersect::NO_INTERSECT ||
-            !point_on_segment (v2, v3, r23.first) ? v2 : r23.first;
+            !point_on_segment (v2, v3, r23.first) ? (v3 + v2) * 0.5f : r23.first;
         auto r31 = plane.lineIntersect (Line (v3, v1 - v3));
         auto v31 =
             r31.second == Plane::LineIntersect::NO_INTERSECT ||
-            !point_on_segment (v3, v1, r31.first) ? v3 : r31.first;
+            !point_on_segment (v3, v1, r31.first) ? (v1 + v3) * 0.5f : r31.first;
         Triangle ta = Triangle (v1, v12, v31);
         Triangle tb = Triangle (v12, v2, v23);
         Triangle tc = Triangle (v23, v3, v31);
@@ -200,4 +200,14 @@ std::pair<std::vector<Triangle>, std::vector<Triangle>> Triangle::clip (
 
         return std::make_pair (above, below);
     }
+}
+
+Triangle Triangle::transform(glm::mat4 const & matrix) const {
+    auto apply = [matrix](glm::vec3 point) {
+        return glm::vec3(matrix * glm::vec4(point, 1));
+    };
+    return Triangle(
+        apply(v1),
+        apply(v2),
+        apply(v3));
 }

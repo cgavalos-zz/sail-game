@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GL/glew.h"
 #include "VertexElementGraphicsComponent.h"
 
 class SkyboxObjectGraphicsComponent {

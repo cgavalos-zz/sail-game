@@ -1,5 +1,7 @@
 #include "Plane.h"
 
+#include <cmath>
+#include <iostream>
 Plane::Plane() {
     Plane(
         glm::vec3(),

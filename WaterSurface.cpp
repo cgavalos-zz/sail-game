@@ -1,5 +1,8 @@
 #include "WaterSurface.h"
 
+#include <iostream>
+#include <glm/gtx/string_cast.hpp>
+
 WaterSurface::WaterSurface (size_t gridUnitsPerSide, float gridWidth) :
     wspc (gridUnitsPerSide, gridWidth),
     wsgc (
@@ -42,7 +45,7 @@ WaterSurface::buoyantForceOnTriangle (
     Plane plane = wspc.getPlane (centroid);
     // Clip triangle to get triangles above and below the surface.
     std::pair<std::vector<Triangle>, std::vector<Triangle>>
-            res = t.clip (plane, glm::vec3 (0.0f, 1.0f, 0.0f));
+            res = t.clip (plane, up);
     // For triangles above:
     //     Apply atmospheric pressure to centroid.
     std::vector<Triangle> above = res.first;
@@ -61,7 +64,7 @@ WaterSurface::buoyantForceOnTriangle (
 
     for (Triangle t : below)
     {
-        belowForces.push_back (PointForce (t.getCentroid(), -t.getNormal(), t.getArea() * pressureFunc (t.getCentroid())));
+        belowForces.push_back (PointForce (t.getCentroid(), -t.getNormal(), t.getArea() * (pressureFunc (t.getCentroid()) + atmosphericPressure)));
     }
 
     // Return weighted sum of all forces.
@@ -80,9 +83,11 @@ WaterSurface::buoyantForcesOnMesh (
     float atmosphericPressure) const
 {
     std::vector<PointForce> triangleForces;
+    glm::mat4 modelMatrix = m.getModelMatrix();
+
     for (Triangle t : m.getTriangles())
     {
-        triangleForces.push_back(buoyantForceOnTriangle(t, up, atmosphericPressure));
+        triangleForces.push_back (buoyantForceOnTriangle (t.transform (modelMatrix), up, atmosphericPressure));
     }
 
     return triangleForces;

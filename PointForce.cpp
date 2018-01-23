@@ -1,5 +1,8 @@
 #include "PointForce.h"
 
+#include <iostream>
+#include <glm/gtx/string_cast.hpp>
+
 PointForce::PointForce()
 {
     PointForce (
@@ -59,10 +62,14 @@ PointForce::codirectionalWeightedSum (std::vector<PointForce> const & forces)
     {
         float magnitudeSum = 0.0f;
         glm::vec3 pointSum;
-        glm::vec3 direction = forces.at (0).getDirection();
+        glm::vec3 direction;
 
         for (PointForce p : forces)
         {
+            if (p.getMagnitude() != 0)
+            {
+                direction = p.getDirection();
+            }
             float tempMagnitude = p.getMagnitude();
             magnitudeSum += tempMagnitude;
             pointSum += p.getPoint() * tempMagnitude;
@@ -81,4 +88,10 @@ PointForce::codirectionalWeightedSum (std::vector<PointForce> const & forces)
     {
         return PointForce();
     }
+}
+
+void PointForce::debug() const {
+    std::cout << "Direction: " << glm::to_string(getDirection()) << std::endl;
+    std::cout << "Point: " << glm::to_string(getPoint()) << std::endl;
+    std::cout << "Magnitude: " << getMagnitude() << std::endl;
 }

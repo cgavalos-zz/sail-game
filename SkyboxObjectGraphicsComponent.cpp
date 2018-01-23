@@ -1,5 +1,6 @@
 #include "SkyboxObjectGraphicsComponent.h"
 
+#include "GL/glew.h"
 #include "ShaderMisc.h"
 #include "FileUtils.h"
 #include <vector>
@@ -27,7 +28,7 @@ SkyboxObjectGraphicsComponent::SkyboxObjectGraphicsComponent() {
 }
 
 void SkyboxObjectGraphicsComponent::update() const {
-	
+
 	vegc.use(program);
 	vegc.draw();
 }

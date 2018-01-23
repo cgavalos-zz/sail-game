@@ -53,7 +53,7 @@ void main() {
 		if (dot(reflectV, sunDirection) > dotAngle) {
 			skyColor = sunColor;
 		} else {
-			skyColor = mix(skyBlue, vec4(1, 1, 1, 1), pow(angleOffVertical * 2 / M_PI, 6));
+			skyColor = mix(skyBlue, vec4(190, 219, 236, 255) / 255.0, pow(angleOffVertical * 2 / M_PI, 8));
 		}
 
 		float degrees = deg(asin(length(cross(augmentedLookDir, onormal))));

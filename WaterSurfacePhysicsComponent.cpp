@@ -113,5 +113,5 @@ WaterSurfacePhysicsComponent::getPressureLambda() const {
 
 Plane
 WaterSurfacePhysicsComponent::getPlane(glm::vec3 const & point) const {
-    return Plane();
+    return Plane(glm::vec3(), glm::vec3(0.0f, 1.0f, 0.0f));
 }

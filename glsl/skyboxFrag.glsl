@@ -17,6 +17,6 @@ void main() {
 	if (dot(augmentedLookDir, sunDirection) > dotAngle) {
 		finalColor = sunColor;
 	} else {
-		finalColor = mix(skyBlue, vec4(1, 1, 1, 1), pow(angleOffVertical * 2 / M_PI, 6));
+		finalColor = mix(skyBlue, vec4(190, 219, 236, 255) / 255.0, pow(angleOffVertical * 2 / M_PI, 8));
 	}
 }

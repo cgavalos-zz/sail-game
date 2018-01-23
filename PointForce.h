@@ -21,4 +21,5 @@ public:
     glm::vec3 getDirection() const;
     float getMagnitude() const;
     static PointForce codirectionalWeightedSum (std::vector<PointForce> const & forces);
+    void debug() const;
 };

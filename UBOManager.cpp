@@ -59,7 +59,7 @@ void UBOManager::update(
 	WindowParameters const & windowParameters) const {
 
 	glm::vec4 sunColor = glm::vec4(1, 1, 1, 1);
-	glm::vec4 skyBlue = glm::vec4(135.0f / 255.0f, 206.0f / 255.0f, 250.0f / 255.0f, 255.0f);
+	glm::vec4 skyBlue = glm::vec4(4.0f / 255.0f, 94.0f / 255.0f, 172.0f / 255.0f, 255.0f);
 	glm::mat4 view = player.getCamera().getTransform();
 	glm::vec3 sunDirection = glm::mat3(view) *
 		skyParameters.getSunDirection();

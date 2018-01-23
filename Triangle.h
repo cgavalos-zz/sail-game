@@ -54,4 +54,5 @@ public:
                 glm::vec3 const & up) const;
     std::vector<Triangle>
     tessellate() const;
+    Triangle transform(glm::mat4 const & matrix) const;
 };
