@@ -1,33 +1,31 @@
-#pragma once
+#ifndef WORLD_H
+#define WORLD_H
 
-#include <glm/glm.hpp>
+#include <memory>
+#include <vector>
 
-#include "Player.h"
-#include "WaterSurface.h"
-#include "WindowParameters.h"
-#include "SkyParameters.h"
-#include "RigidObject.h"
-#include "SkyboxObject.h"
-#include "UBOManager.h"
-#include "TestObject.h"
+#include "Object.h"
+#include "ObjectPainter.h"
+#include "PaintableObject.h"
+#include "Painter.h"
 
 class World {
 private:
-	const unsigned int gridUnitsPerSide = 40;
-	const float gridWidth = 1000.0f;
-	const float fovy = glm::radians(45.0f);
-	const float zNear = 1.0f;
-	const float sunAngularWidth = glm::radians(1.0f);
-	const glm::vec3 sunPosition = glm::normalize(glm::vec3(0.0f, 1.0f, -15.0f));
+  std::vector<std::shared_ptr<Object>> nonPaintableObjects;
 
-	Player player;
-	WaterSurface waterSurface;
-	WindowParameters windowParameters;
-	SkyParameters skyParameters;
-	RigidObject buoyantObject;
-	SkyboxObject skyboxObject;
-	UBOManager manager;
+  std::vector<std::shared_ptr<Painter>> otherPainters;
+
+  std::vector<std::shared_ptr<PaintableObject>> paintableObjects;
+  std::vector<std::shared_ptr<ObjectPainter>> objectPainters;
+
 public:
-	World(unsigned int width, unsigned int height, SDL_Event * e);
-	void update(float timeStep);
+  void paintUpdate();
+  void physicsUpdate(float timeStep);
+  void update(float timeStep);
+  void addNonPaintableObject(std::shared_ptr<Object> object);
+  void addPaintableObject(std::shared_ptr<PaintableObject> object);
+  void addOtherPainter(std::shared_ptr<Painter> painter);
+  void addObjectPainter(std::shared_ptr<ObjectPainter> painter);
 };
+
+#endif

@@ -1,10 +1,12 @@
 #pragma once
 
+#include "PaintableObject.h"
 #include "SkyboxObjectGraphicsComponent.h"
 
-class SkyboxObject {
+class SkyboxObject : public PaintableObject {
 private:
-	SkyboxObjectGraphicsComponent sogc;
+  SkyboxObjectGraphicsComponent sogc;
+
 public:
-	void update() const;
+  void update() const;
 };
