@@ -55,7 +55,7 @@ void render(World &world, SDL_Window *win, Uint32 &pastTicks,
   // exit(1);
 
   SDL_GL_SwapWindow(win);
-  SDL_Delay(1000 / 50);
+  SDL_Delay(1000 / 60);
 }
 
 bool shouldQuit(SDL_Event *e) {

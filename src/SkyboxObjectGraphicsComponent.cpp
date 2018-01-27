@@ -1,34 +1,33 @@
 #include "SkyboxObjectGraphicsComponent.h"
 
+#include "FileUtils.h"
 #include "GL/glew.h"
 #include "ShaderMisc.h"
-#include "FileUtils.h"
 #include <vector>
 
 SkyboxObjectGraphicsComponent::SkyboxObjectGraphicsComponent() {
 
-	auto pair = getVDataFromFile("skybox.txt");
-	auto vertices = pair.first;
-	auto elements = pair.second;
+  auto pair = getVDataFromFile("modelfiles/skybox.txt");
+  auto vertices = pair.first;
+  auto elements = pair.second;
 
-	vegc = VertexElementGraphicsComponent(vertices, elements);
+  vegc = VertexElementGraphicsComponent(vertices, elements);
 
-	std::vector<GLenum> types({
-		GL_VERTEX_SHADER, GL_FRAGMENT_SHADER });
+  std::vector<GLenum> types({GL_VERTEX_SHADER, GL_FRAGMENT_SHADER});
 
-	std::vector<std::string> filenames({
-		"glsl/skyboxVert.glsl", "glsl/skyboxFrag.glsl" });
+  std::vector<std::string> filenames(
+      {"glsl/skyboxVert.glsl", "glsl/skyboxFrag.glsl"});
 
-	program = programSetup(types, filenames);
-	glUseProgram(program);
+  program = programSetup(types, filenames);
+  glUseProgram(program);
 
-	GLuint pLoc = glGetAttribLocation(program, "position");
-	glEnableVertexAttribArray(pLoc);
-	glVertexAttribPointer(pLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
+  GLuint pLoc = glGetAttribLocation(program, "position");
+  glEnableVertexAttribArray(pLoc);
+  glVertexAttribPointer(pLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 void SkyboxObjectGraphicsComponent::update() const {
 
-	vegc.use(program);
-	vegc.draw();
+  vegc.use(program);
+  vegc.draw();
 }
