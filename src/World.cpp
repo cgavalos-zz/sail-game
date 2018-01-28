@@ -8,7 +8,10 @@ World::World(unsigned int width, unsigned int height, SDL_Event *e)
       windowParameters(fovy, width, height, zNear),
       skyParameters(sunPosition, sunAngularWidth),
       // buoyantObject ( RigidObject::fromDataFile ( "modelfiles/box1.txt" ) ),
-      skyboxObject(), manager() {}
+      skyboxObject(), manager() {
+  buoyantObject.setMesh(Mesh::fromDataFile("modelfiles/box1.txt"));
+  // buoyantObject.setRigidBody()
+}
 
 void World::update(float timeStep) {
 
@@ -18,7 +21,7 @@ void World::update(float timeStep) {
   skyboxObject.update();
   player.update();
   waterSurface.update(player);
-  // buoyantObject.update ( waterSurface, timeStep );
+  buoyantObject.update(timeStep);
 
   TestObject to;
   to.update();
