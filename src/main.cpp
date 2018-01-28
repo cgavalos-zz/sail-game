@@ -74,6 +74,10 @@ int init(unsigned int width, unsigned int height, SDL_Window **win,
     std::cout << "SDL_Init success" << std::endl;
   }
 
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+
   *win = SDL_CreateWindow("Title", SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED, width, height,
                           SDL_WINDOW_OPENGL);
@@ -113,10 +117,6 @@ int init(unsigned int width, unsigned int height, SDL_Window **win,
   } else {
     std::cout << "glewInit success" << std::endl;
   }
-
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
   return 0;
 }

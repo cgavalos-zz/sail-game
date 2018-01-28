@@ -8,7 +8,7 @@ uniform bool allBlack;
 in vec3 onormal;
 out vec4 finalColor;
 
-const float distFactor = -0.7 / (2 * unitSize);
+float distFactor = -0.7 / (2 * unitSize);
 
 float reflectance(float degrees) {
 	degrees = clamp(degrees, 0.0, 90.0);
