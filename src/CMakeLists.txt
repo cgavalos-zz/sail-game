@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.5)
 
-set(SRC_FILES
+add_executable(sail-game main.cpp)
+
+target_sources(sail-game PUBLIC
   World.cpp
   RigidObject.cpp
   TestObject.cpp
@@ -19,29 +21,33 @@ set(SRC_FILES
   TypeSize.cpp
   WaterSurfaceGraphicsComponent.cpp
   RigidBody.cpp
-  main.cpp
   Triangle.cpp
   Mesh.cpp
   PointForce.cpp
   SkyParameters.cpp
   WindowParameters.cpp
   SkyboxObject.cpp
-  Plane.cpp)
-
-add_executable(sail-game ${SRC_FILES})
-
-set(COMPILE_OPTIONS -std=c++11)
-set(LINK_OPTIONS -lGL)
+  Plane.cpp
+)
 
 find_package(SDL2 REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(OpenGL REQUIRED)
 
-target_compile_options(sail-game PUBLIC ${COMPILE_OPTIONS})
-target_link_libraries(sail-game ${SDL2_LIBRARIES} ${GLEW_LIBRARIES} ${LINK_OPTIONS})
+target_link_libraries(sail-game
+  ${SDL2_LIBRARIES}
+  ${GLEW_LIBRARIES}
+  ${OPENGL_gl_LIBRARY}
+)
+
+target_compile_features(sail-game
+  PUBLIC
+    cxx_nullptr
+)
 
 set_target_properties(sail-game
   PROPERTIES
-  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+  ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib"
+  LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib"
+  RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}"
 )

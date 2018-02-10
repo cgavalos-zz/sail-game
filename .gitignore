@@ -1,15 +1,8 @@
 # Executable
-*.out
-bin/
+sail-game
 
-# CodeBlocks
-Debug/
-sail-game.cbp
-sail-game.depend
-sail-game.layout
-
-# CMake
-CMakeFiles
+# CMake Files
 CMakeCache.txt
-cmake_install.cmake
+CMakeFiles
 Makefile
+cmake_install.cmake
